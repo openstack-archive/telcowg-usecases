@@ -4,83 +4,81 @@ This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 http://creativecommons.org/licenses/by/3.0/legalcode
 
 ..
-  This template should be in ReSTructured text. The filename in the git
-  repository should match the launchpad URL, for example a URL of
-  https://blueprints.launchpad.net/telcowg-usecases/+spec/awesome-thing should be named
-  awesome-thing.rst .  Please do not delete any of the sections in this
-  template.  If you have nothing to say for a whole section, just write: None
+  This template should be in ReSTructured text. Please do not delete any
+  of the sections in this template.  If you have nothing to say for a
+  whole section, just write: None.
   For help with syntax, see http://sphinx-doc.org/rest.html
   To test out your formatting, see http://www.tele3.cz/jbar/rest/rest.html
 
 =============================
- The title of your blueprint
+ The title of your use case
 =============================
 
-Include the URL of your launchpad blueprint:
+Introduction paragraph -- what function are you attempting to support
+with OpenStack?
 
-https://blueprints.launchpad.net//+spec/example
+Glossary
+========
 
-Introduction paragraph -- why are we doing anything?
+Provide a list of acronyms, their expansions, and what they actually mean in
+general language here. Define any terms that are specific to your problem
+domain. If there are devices, appliances, or software stacks that you expect
+to interact with OpenStack, list them here.
+
+Remember: OpenStack is used for a large number of deployments, and
+the better you communicate your use case the easier it will be to implement.
 
 Problem description
 ===================
 
-A detailed description of the problem.
+A detailed description of the problem. This should include the types of
+functions that you expect to run on OpenStack and their interactions both
+with OpenStack and with external systems.
 
-Proposed change
-===============
+Examples
+--------
 
-Here is where you cover the change you propose to make in detail. How do you
-propose to solve this problem?
+In order to explain your use case, if possible, provide an example of a
+currently implemented or documented planned solution.
 
-If this is one part of a larger effort make it clear where this piece ends. In
-other words, what's the scope of this effort?
-
-Include where in the telcowg-usecases tree hierarchy this will reside.
-
-Alternatives
-------------
-
-This is an optional section, where it does apply we'd just like a demonstration
-that some thought has been put into why the proposed approach is the best one.
-
-Implementation
-==============
-
-Assignee(s)
+Affected By
 -----------
 
-Who is leading the writing of the code? Or is this a blueprint where you're
-throwing it out there to see who picks it up?
+If you are aware of any work in progress that will affect this use case,
+please list it here.  Include links to a spec or blueprint or bug report
+where applicable.
 
-If more than one person is working on the implementation, please designate the
-primary author and contact.
-
-Primary assignee:
-  <launchpad-id or None>
-
-Can optionally can list additional ids if they intend on doing
-substantial implementation work on this blueprint.
-
-Milestones
-----------
-
-Target Milestone for completion:
-  Juno-1
-
-Work Items
-----------
-
-Work items or tasks -- break the feature up into the things that need to be
-done to implement it. Those parts might end up being done by different people,
-but we're mostly trying to understand the timeline for implementation.
-
-
-Dependencies
+Requirements
 ============
 
-- Include specific references to specs and/or blueprints in telcowg-usecases, or in other
-  projects, that this one either depends on or is related to.
+Use this section to define the functions that must be available or any
+specific technical requirements that exist in order to successfully
+support your use case. If there are requirements that are external
+to OpenStack, note them as such.
 
-- Does this feature require any new library dependencies or code otherwise not
-  included in OpenStack? Or does it depend on a specific version of library?
+References
+----------
+
+If any of your requirements specifically call for the implementation
+of a standard or protocol or other well-defined mechanism, use this
+section to list them.
+
+Related Use Cases
+=================
+
+If there are related use cases that have some overlap in the problem
+domain or that you perceive may partially share requirements or a
+solution, reference them here.
+
+Gaps
+====
+
+This section should be used to provide information on the difference
+between requirements that are currently met within OpenStack and
+those that are not. Requirements not met by OpenStack but that the
+author feels should be addressed by it should be listed here.
+If you are already aware of any gaps that exist in OpenStack that
+prevent the implementation of this use case, provide them here.
+This section can often be left with "None currently known." It is
+the purpose of this working group and repository to use the 
+use cases presented here to identify what the gaps are.
