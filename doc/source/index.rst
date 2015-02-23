@@ -10,7 +10,7 @@ telcowg-usecases Design Specifications
    :glob:
    :maxdepth: 2
 
-   specs/*
+   usecases/*
 
 
 telcowg-usecases Repository Information
