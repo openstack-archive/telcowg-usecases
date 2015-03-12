@@ -1,4 +1,1 @@
-----------------------
-Just an empty template
-----------------------
-
+../template.rst
