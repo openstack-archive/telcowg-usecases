@@ -1,0 +1,11 @@
+Verified+2: Jenkins
+Code-Review+2: Stephen Gordon <sgordon@redhat.com>
+Workflow+1: Stephen Gordon <sgordon@redhat.com>
+Code-Review+2: Anthony Veiga <anthony_veiga@cable.comcast.com>
+Code-Review+1: Daniel Schabarum <da.schabs@gmail.com>
+Code-Review+1: Ralf Trezeciak <openstack@trezeciak.de>
+Submitted-by: Jenkins
+Submitted-at: Wed, 15 Apr 2015 12:54:33 +0000
+Reviewed-on: https://review.openstack.org/172074
+Project: stackforge/telcowg-usecases
+Branch: refs/heads/master
