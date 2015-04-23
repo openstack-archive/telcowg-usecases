@@ -47,6 +47,14 @@ A detailed description of the problem. This should include the types of
 functions that you expect to run on OpenStack and their interactions both
 with OpenStack and with external systems.
 
+User Stories
+------------
+
+A list of user stories ideally in this or a similar format:
+
+* As a <type of user>, I want to <goal> so that <benefit>
+* ...
+
 Examples
 --------
 
