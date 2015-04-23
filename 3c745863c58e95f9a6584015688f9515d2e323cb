@@ -1,0 +1,10 @@
+Verified+2: Jenkins
+Code-Review+2: Marc Koderer <marc@koderer.com>
+Workflow+1: Marc Koderer <marc@koderer.com>
+Code-Review+2: Anthony Veiga <anthony_veiga@cable.comcast.com>
+Code-Review+1: Daniel Schabarum <da.schabs@gmail.com>
+Submitted-by: Jenkins
+Submitted-at: Thu, 23 Apr 2015 10:34:34 +0000
+Reviewed-on: https://review.openstack.org/169871
+Project: stackforge/telcowg-usecases
+Branch: refs/heads/master
