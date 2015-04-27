@@ -168,8 +168,10 @@ The problem statement above leads to the following requirements.
   standby to take over within seconds of failure of the active, including
   taking over its IP address.  To support these application level HA mechanisms
   requires:
+
   * support for anti-affinity rules to permit the active and standby being
     instantiated on the same host
+
   * support for a gratuitous ARP based scheme where the standby broadcasts ARP
     messages saying it now owns the virtual IP address.
 
@@ -216,6 +218,7 @@ The above requirements currently suffer from these gaps.
   VMs.  Some steps have been taken to support this ("Open vSwitch to use patch
   ports", https://blueprints.launchpad.net/neutron/+spec/openvswitch-patch-port-use,
   patched 2014.2) but other bps are needed:
+
   * "Support vhost user in libvirt vif driver",
     https://blueprints.launchpad.net/nova/+spec/libvirt-vif-vhost-user
 
