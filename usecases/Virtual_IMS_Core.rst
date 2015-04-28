@@ -7,22 +7,27 @@ http://creativecommons.org/licenses/by/3.0/legalcode
  Virtual IMS Core
 =============================
 
-Project Clearwater, http://www.projectclearwater.org/. An open source
+This use case is specifically about deploying the Project Clearwater open
+source IMS core in OpenStack, but is more generally representative of the
+issues involved in deploying in OpenStack a scalable control plane function
+deployed using a series of load-balanced N+k pools.
+
+The use case focuses on those elements rather than more generic issues like
+orchestration and HA.
+
+Project Clearwater, http://www.projectclearwater.org/, is an open source
 implementation of an IMS core designed to run in the cloud and be massively
 scalable. It provides SIP-based call control for voice and video as well as SIP
 based messaging apps. As an IMS core it provides P/I/S-CSCF function together
 with a BGCF and an HSS cache, and includes a WebRTC gateway providing
 interworking between WebRTC & SIP clients.
 
-TODO: Move Project Clearwater info to glossary and/or problem description.
-TODO: Generalize above.
-
 Glossary
 ========
 
 * IMS - IP Multimedia Subsystem
 * SIP - Session Initiation Protocol
-* P/I/S-CSCF -
+* P/I/S-CSCF - Proxy/Interrogating/Serving Call Session Control Function
 * BGCF - Breakout Gateway Control Function
 * HSS - Home Subscriber Server
 * WebRTC - Web Real-Time-Collaboration
@@ -30,67 +35,94 @@ Glossary
 Problem description
 ===================
 
-A detailed description of the problem. This should include the types of
-functions that you expect to run on OpenStack and their interactions both
-with OpenStack and with external systems.
+Project Clearwater is mainly a compute application with modest demands on
+storage and network - it provides the control plane, not the media plane
+(packets typically travel point-to-point between the clients) so does not
+require high packet throughput rates and is reasonably resilient to jitter and
+latency.
 
-* Mainly a compute application: modest demands on storage and networking.
-* Fully HA, with no SPOFs and service continuity over software and hardware
-  failures; must be able to offer SLAs.
-* Elastically scalable by adding/removing instances under the control of the
-  NFV orchestrator.
+Project Clearwater must be deployable as an HA service offering Service Level
+Agreement (SLA) to end users.  Here HA refers to the availability of the
+service for completing new call attempts, not for continuity of existing calls,
+though as it is the control plane rather than media plane the user experience
+of a Clearwater failure is that audio would continue uninterrupted but any
+actions requiring signalling (e.g. conferencing in a 3rd party) would fail.
 
-Examples
---------
-
-In order to explain your use case, if possible, provide an example of a
-currently implemented or documented planned solution.
-
-Gaps
-----
-
-If you are already aware of any gaps that exist in OpenStack that
-prevent the implementation of this use case, provide them here.
-
-Affected By
------------
-
-If you are aware of any work in progress that will affect this use case,
-please list it here.  Include links to a spec or blueprint or bug report
-where applicable.
+Project Clearwater must be elastically scalable, enabling an NFV orchestrator
+to add and remove instances in response to applied load.
 
 Requirements
 ============
 
-* Compute application:
+The problem statement above leads to the following requirements.
 
-  * OpenStack already provides everything needed; in particular, there are no
-     requirements for an accelerated data plane, nor for core pinning nor NUMA
+* Compute application
 
-* HA:
+  OpenStack already provides everything needed; in particular, there are no
+  requirements for an accelerated data plane, nor for core pinning nor NUMA.
 
-  * implemented as a series of N+k compute pools; meeting a given SLA requires
-    being able to limit the impact of a single host failure
-  * potentially a scheduler gap here: affinity/anti-affinity can be expressed
-    pair-wise between VMs, which is sufficient for a 1:1 active/passive
-    architecture, but an N+k pool needs a concept equivalent to
-    "group anti-affinity" i.e. allowing the NFV orchestrator to assign each VM
-    in a pool to one of X buckets, and requesting OpenStack to ensure no single
-    host failure can affect more than one bucket (there are other approaches
-    which achieve the same end e.g. defining a group where the scheduler ensures
-    every pair of VMs within that group are not instantiated on the same host)
-    for study whether this can be implemented using current scheduler hints
+* HA
 
-* Elastic scaling:
+  Project Clearwater itself implements HA at the application level, consisting
+  of a series of load-balanced N+k pools with no single points of failure.
 
-  * as for compute requirements there is no gap - OpenStack already provides
-    everything needed.
+  To meet typical SLAs, it is necessary that the failure of any given host
+  cannot take down more than k VMs in each N+k pool.  More precisely, given
+  that those pools are dynamically scaled, it is a requirement that at no time
+  is there more than a certain proportion of any pool instantiated on the
+  same host.  See Gaps below.
 
-References
-----------
+  That by itself is insufficient for offering an SLA, though: to be deployable
+  in a single OpenStack cloud (even spread across availability zones or
+  regions), the underlying cloud platform must be at least as reliable as the
+  SLA demands.
 
-* https://wiki.openstack.org/wiki/TelcoWorkingGroup/UseCases#Virtual_IMS_Core
+* Elastic scaling
+
+  An NFV orchestrator must be able to rapidly launch or terminate new
+  instances in response to applied load and service responsiveness.  This is
+  basic OpenStack nova function.
+
+* Placement zones
+
+  In the IMS architecture there is a separation between access and core
+  networks, with the P-CSCF component (Bono - see architecture link below)
+  bridging the gap between the two.  Although Project Clearwater does not yet
+  support this, it would in future be desirable to support Bono being deployed
+  in a DMZ-like placement zone, separate from the rest of the service in the
+  main MZ.  See reference below.
 
 Related Use Cases
 =================
 
+None, but any VNF implemented as a highly scalable N+k pool will likely have
+similar requirements and gaps.
+
+Gaps
+====
+
+The above requirements currently suffer from these gaps.
+
+* Affinity for N+k pools
+
+  Affinity/anti-affinity can be expressed pair-wise between VMs, which is
+  sufficient for a 1:1 active/passive architecture, but an N+k pool needs
+  something more subtle.  Specifying that all members of the pool should live
+  on distinct hosts is clearly wasteful. Instead, availability modelling shows
+  that the overall availability of an N+k pool is determined by the time to
+  detect and spin up new instances, the time between failures, and the
+  proportion of the overall pool that fails simultaneously. The OpenStack
+  scheduler needs to provide some way to control the latter by limiting
+  the proportion of a group of related VMs that are scheduled on the same host.
+
+Affected By
+===========
+
+None.
+
+References
+==========
+
+* https://wiki.openstack.org/wiki/TelcoWorkingGroup/UseCases#Virtual_IMS_Core
+* http://www.projectclearwater.org/technical/clearwater-architecture/
+* https://review.openstack.org/#/c/163399/ (Placement zones)
