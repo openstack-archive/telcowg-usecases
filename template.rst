@@ -76,6 +76,9 @@ If you are aware of any work in progress that will affect this use case,
 please list it here.  Include links to a spec or blueprint or bug report
 where applicable.
 
+Please note that this step is optional, leave this section blank if you are
+unsure.
+
 Requirements
 ============
 
