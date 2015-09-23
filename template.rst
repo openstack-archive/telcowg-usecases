@@ -76,14 +76,17 @@ If you are aware of any work in progress that will affect this use case,
 please list it here.  Include links to a spec or blueprint or bug report
 where applicable.
 
+Please note that this step is optional, leave this section blank if you are
+unsure.
+
 Requirements
 ============
 
-Use this section to define the functions that must be available or any
-specific technical requirements that exist in order to successfully
-support your use case. If there are requirements that are external
-to OpenStack, note them as such. Please always add a comprehensible
-description to ensure that people understand your need.
+Use this section to describe the functions you need to successfully support
+your use case. If you have requirements which are currently not addressed by
+OpenStack please highlight them. Note however, this will not mean that they
+necessarily will be implemented. Please refrain from specifying implementation
+details.
 
 * 1st Requirement
 * 2nd Requirement
