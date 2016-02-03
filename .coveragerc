@@ -4,4 +4,4 @@ source = telcowg-usecases
 omit = telcowg-usecases/tests/*,telcowg-usecases/openstack/*
 
 [report]
-ignore-errors = True
+ignore_errors = True
