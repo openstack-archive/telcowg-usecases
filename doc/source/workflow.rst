@@ -153,7 +153,7 @@ specification process for accepting use cases:
 * Check whether an RFE or backlog specification exists for the gap or
   requirement.
 * Where an RFE or backlog specification does not exist - create one.
-* Link the RFE or backlog specification from the the tracker for the use case.
+* Link the RFE or backlog specification from the tracker for the use case.
 
 Where potentially impacted project(s) do not use such a process:
 
