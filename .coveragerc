@@ -1,7 +1,0 @@
-[run]
-branch = True
-source = telcowg-usecases
-omit = telcowg-usecases/tests/*,telcowg-usecases/openstack/*
-
-[report]
-ignore_errors = True

@@ -1,4 +1,0 @@
-pbr>=0.6,<1.0
-oslosphinx
-sphinx>=1.1.2,<1.2
-yasfb>=0.5.1
